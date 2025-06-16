@@ -1,9 +1,25 @@
 server:
+  # 启动端口
   port: 8080
 
 spring:
+  ai:
+  # 配置openAI
+    openai:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: qwen-max-latest
+  # 配置数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://8.138.89.145:3306/SpringAI?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&useServerPrepStmts=false
     username: root
     password: 190715zcy
+
+# 日志配置
+logging:
+  level:
+    org.springframework.ai: debug
+    cloud.ciky: debug

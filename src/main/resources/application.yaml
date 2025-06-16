@@ -7,16 +7,16 @@ spring:
   # 配置openAI
     openai:
       base-url: https://dashscope.aliyuncs.com/compatible-mode
-      api-key: ${OPENAI_API_KEY}
+      api-key: ${OPENAI_API_KEY}  # 在环境配置中配置apiKey
       chat:
         options:
           model: qwen-max-latest
   # 配置数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.138.89.145:3306/SpringAI?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&useServerPrepStmts=false
-    username: root
-    password: 190715zcy
+    url: jdbc:mysql://8.138.89.145:3306/health_weight?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&useServerPrepStmts=false
+    username: health_admin
+    password: 123456
 
 # 日志配置
 logging:

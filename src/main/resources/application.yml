@@ -32,10 +32,9 @@ wx:
   chat:
     appid: ${APP_ID}
     secret: ${SECRET}
-    mchid:
-    mch-serial-no:
-    private-key-file-path:
-    api-v3-key:
-    we-chat-pay-cert-file-path:
-    notify-url:
-    refund-notify-url:
+
+
+
+mybatis-plus:
+  # xml路径配置
+  mapper-locations: classpath:mapper/*.xml

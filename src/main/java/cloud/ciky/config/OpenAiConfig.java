@@ -1,5 +1,6 @@
 package cloud.ciky.config;
 
+import cloud.ciky.constants.SystemConstants;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -21,6 +22,7 @@ public class OpenAiConfig {
     public ChatClient chatClient(OpenAiChatModel model){
         return ChatClient.builder(model)    //创建ChatClient工厂
                 .defaultOptions(ChatOptions.builder().model("qwen-omni-turbo").build())
+                .defaultSystem(SystemConstants.SYSTEM_PROMPT)
                 .defaultAdvisors(
                         new SimpleLoggerAdvisor()                  //添加默认的Advisor记录日志
                 )

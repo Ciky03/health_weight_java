@@ -28,12 +28,16 @@ logging:
     org.springframework.ai: debug
     cloud.ciky: debug
 
+# 微信小程序配置
 wx:
   chat:
     appid: ${APP_ID}
     secret: ${SECRET}
 
-
+# jwt配置
+jwt:
+  secretKey: ${JWT_SECRET_KEY}
+  expire: 86400
 
 mybatis-plus:
   # xml路径配置

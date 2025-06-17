@@ -27,3 +27,15 @@ logging:
   level:
     org.springframework.ai: debug
     cloud.ciky: debug
+
+wx:
+  chat:
+    appid: ${APP_ID}
+    secret: ${SECRET}
+    mchid:
+    mch-serial-no:
+    private-key-file-path:
+    api-v3-key:
+    we-chat-pay-cert-file-path:
+    notify-url:
+    refund-notify-url:

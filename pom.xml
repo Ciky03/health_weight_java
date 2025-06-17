@@ -63,6 +63,13 @@
             <version>3.5.10.1</version>
         </dependency>
 
+        <!--springBoot配置处理器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
     <!--依赖管理-->

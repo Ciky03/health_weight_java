@@ -1,6 +1,7 @@
 package cloud.ciky.mapper;
 
 import cloud.ciky.entity.model.UserProfile;
+import cloud.ciky.entity.vo.UserProfileVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface UserProfileMapper extends BaseMapper<UserProfile> {
+    public UserProfileVo getUserProfileByUserId(Long userId);
 }

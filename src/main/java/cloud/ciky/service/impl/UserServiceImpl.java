@@ -6,6 +6,7 @@ import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.model.User;
 import cloud.ciky.entity.model.UserProfile;
 import cloud.ciky.entity.vo.UserLoginVo;
+import cloud.ciky.entity.vo.UserProfileVo;
 import cloud.ciky.enums.ActivityLevelEnum;
 import cloud.ciky.mapper.UserMapper;
 import cloud.ciky.mapper.UserProfileMapper;
@@ -135,6 +136,15 @@ public class UserServiceImpl implements UserService {
             }
             return Result.error("保存失败");
         }
+    }
+
+    @Override
+    public Result<UserProfileVo> getUserProfileByUserId(Long userId) {
+        UserProfileVo userProfileVo = userProfileMapper.getUserProfileByUserId(userId);
+        if(userProfileVo == null){
+            return Result.success(null);
+        }
+        return Result.success(userProfileVo);
     }
 
     /**

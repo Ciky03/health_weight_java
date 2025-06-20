@@ -4,6 +4,7 @@ import cloud.ciky.entity.Result;
 import cloud.ciky.entity.dto.UserLoginDTO;
 import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.vo.UserLoginVo;
+import cloud.ciky.entity.vo.UserProfileVo;
 import cloud.ciky.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
+    //测试userId
+    private static final Long TEST_USER_ID = 1L;
 
     @Autowired
     private UserService userService;
@@ -44,8 +48,18 @@ public class UserController {
      */
     @PostMapping("/profile/save")
     public Result updateUserProfile(@RequestBody UserProfileDTO userProfileDTO){
+        log.info("当前登录用户id:{}",TEST_USER_ID);
         log.info("用户健康数据:{}",userProfileDTO);
         return userService.updateUserProfile(userProfileDTO);
+    }
+
+    /**
+     * 根据userId获取用户健康数据
+     * @return
+     */
+    public Result<UserProfileVo> getUserProfileByUserId(){
+        log.info("当前登录用户id:{}",TEST_USER_ID);
+        return userService.getUserProfileByUserId(TEST_USER_ID);
     }
 
 }

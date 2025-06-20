@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cloud.ciky.mapper.UserMapper">
+<mapper namespace="cloud.ciky.mapper.UserProfileMapper">
 
 
+    <select id="getUserProfileByUserId" resultType="cloud.ciky.entity.vo.UserProfileVo"
+            parameterType="java.lang.Long">
+        SELECT
+        hu.avatar AS avatar,
+        hu.name AS name,
+        COALESCE(hup.sex, hu.sex) AS sex,
+        hup.age AS age,
+        hup.weight AS weight,
+        hup.height AS height,
+        hup.weight_goal AS weightGoal,
+        hup.activity_level AS activityLevel,
+        hup.daily_calorie AS dailyCalorie,
+        hup.recommended_daily_calorie AS recommendedDailyCalorie
+        FROM
+        health_user hu
+        LEFT JOIN
+        health_user_profile hup ON hu.id = hup.user_id
+        WHERE
+        hu.id = #{userId}
+
+    </select>
 </mapper>

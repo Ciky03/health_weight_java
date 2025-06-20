@@ -13,4 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserProfileMapper extends BaseMapper<UserProfile> {
     public UserProfileVo getUserProfileByUserId(Long userId);
+
+    public Integer selectDailyCalorieByUserId(Long userId);
 }

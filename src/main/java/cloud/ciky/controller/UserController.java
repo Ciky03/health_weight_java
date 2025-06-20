@@ -60,4 +60,14 @@ public class UserController {
         return userService.getUserProfileByUserId(TEST_USER_ID);
     }
 
+    /**
+     * 根据userId获取用户每日卡路里
+     * @return
+     */
+    @GetMapping("/profile/calorie")
+    public Result<Integer> getDailyCalorieByUserId(){
+        log.info("当前登录用户id:{}",TEST_USER_ID);
+        return userService.getDailyCalorieByUserId(TEST_USER_ID);
+    }
+
 }

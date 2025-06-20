@@ -147,6 +147,15 @@ public class UserServiceImpl implements UserService {
         return Result.success(userProfileVo);
     }
 
+    @Override
+    public Result<Integer> getDailyCalorieByUserId(Long userId) {
+        Integer dailyCalorie = userProfileMapper.selectDailyCalorieByUserId(userId);
+        if(dailyCalorie == null){
+            return Result.error("未查询到用户目标卡路里");
+        }
+        return Result.success(dailyCalorie);
+    }
+
     /**
      * 保存用户信息
      */

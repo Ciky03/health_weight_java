@@ -30,8 +30,15 @@ public interface UserService {
 
     /**
      * 获取用户健康数据
-     * @param testUserId
+     * @param userId
      * @return
      */
-    Result<UserProfileVo> getUserProfileByUserId(Long testUserId);
+    Result<UserProfileVo> getUserProfileByUserId(Long userId);
+
+    /**
+     * 根据userId获取用户每日卡路里
+     * @param userId 用户id
+     * @return
+     */
+    Result<Integer> getDailyCalorieByUserId(Long userId);
 }

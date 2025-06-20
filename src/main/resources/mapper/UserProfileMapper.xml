@@ -24,4 +24,9 @@
         hu.id = #{userId}
 
     </select>
+
+    <select id="selectDailyCalorieByUserId" resultType="integer"
+            parameterType="java.lang.Long">
+        select daily_calorie from health_user_profile where user_id = #{userId}
+    </select>
 </mapper>

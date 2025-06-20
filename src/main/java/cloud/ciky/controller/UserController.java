@@ -1,8 +1,16 @@
 package cloud.ciky.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import cloud.ciky.entity.Result;
+import cloud.ciky.entity.dto.UserLoginDTO;
+import cloud.ciky.entity.vo.UserLoginVo;
+import cloud.ciky.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * @Author: ciky
@@ -11,10 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    @GetMapping("/test")
-    public String test(){
-        return "success";
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 微信登录
+     * @param userLoginDTO 登录参数
+     * @return
+     */
+    @PostMapping("/login")
+    public Result<UserLoginVo> login(@RequestBody UserLoginDTO userLoginDTO){
+        log.info("微信用户登录:{}",userLoginDTO);
+        return userService.login(userLoginDTO);
     }
 }

@@ -6,6 +6,7 @@ import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.model.User;
 import cloud.ciky.entity.model.UserProfile;
 import cloud.ciky.entity.vo.UserLoginVo;
+import cloud.ciky.enums.ActivityLevelEnum;
 import cloud.ciky.mapper.UserMapper;
 import cloud.ciky.mapper.UserProfileMapper;
 import cloud.ciky.service.UserService;
@@ -99,8 +100,13 @@ public class UserServiceImpl implements UserService {
             //新增
             UserProfile userProfile = new UserProfile();
             BeanUtils.copyProperties(userProfileDTO, userProfile);
+            Integer dailyCalorie = userProfile.getDailyCalorie();
+            dailyCalorie = calculateDailyCalorie(userProfile);
+            if(dailyCalorie == null){
+                userProfile.setDailyCalorie(dailyCalorie);
+            }
+            userProfile.setRecommendedDailyCalorie(dailyCalorie);
             userProfile.setUserId(TEST_USER_ID);
-
             int insert = userProfileMapper.insert(userProfile);
 
             //判断是否保存成功
@@ -110,12 +116,20 @@ public class UserServiceImpl implements UserService {
             return Result.error("保存失败");
         }else{
             //更新
-            Integer id = userProfileDB.getId();
             UserProfile userProfile = new UserProfile();
             BeanUtils.copyProperties(userProfileDTO, userProfile);
+            Integer dailyCalorie = calculateDailyCalorie(userProfile);
+            dailyCalorie = calculateDailyCalorie(userProfile);
+            if(dailyCalorie == null){
+                userProfile.setDailyCalorie(dailyCalorie);
+            }
+            userProfile.setRecommendedDailyCalorie(dailyCalorie);
+            userProfile.setUserId(TEST_USER_ID);
+            Integer id = userProfileDB.getId();
             userProfile.setId(id);
-
             int update = userProfileMapper.updateById(userProfile);
+
+            //判断是否更新成功
             if(update > 0){
                 return Result.success();
             }
@@ -136,4 +150,30 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         return user;
     }
+
+    /**
+     * 计算每日卡路里目标
+     */
+    private Integer calculateDailyCalorie(UserProfile userProfile) {
+        //1.计算基础代谢率(BMR)
+        double bmr = userProfile.getSex().equals("1")
+                ? (10 * userProfile.getWeight() + 6.25 * userProfile.getHeight() - 5 * userProfile.getAge() + 5)
+                : (10 * userProfile.getWeight() + 6.25 * userProfile.getHeight() - 5 * userProfile.getAge() - 161);
+
+        //2.根据活动程度计算总能量消耗 (TDEE)
+        String activityLevel = userProfile.getActivityLevel();
+        double activeFactor = ActivityLevelEnum.getByCode(activityLevel).getActiveFactor();
+        double tdee = bmr * activeFactor;
+
+        //3.计算
+        Double weightGoal = userProfile.getWeightGoal();
+        if(weightGoal > 0){
+            tdee -= (weightGoal/0.5)*500;
+        }else if(weightGoal > 0){
+            tdee += (weightGoal/0.5)*300;
+        }
+        return Math.toIntExact(Math.round(tdee));
+    }
+
+
 }

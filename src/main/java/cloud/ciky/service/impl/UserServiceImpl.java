@@ -2,9 +2,12 @@ package cloud.ciky.service.impl;
 
 import cloud.ciky.entity.Result;
 import cloud.ciky.entity.dto.UserLoginDTO;
+import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.model.User;
+import cloud.ciky.entity.model.UserProfile;
 import cloud.ciky.entity.vo.UserLoginVo;
 import cloud.ciky.mapper.UserMapper;
+import cloud.ciky.mapper.UserProfileMapper;
 import cloud.ciky.service.UserService;
 import cloud.ciky.utils.JwtUtil;
 import cn.binarywang.wx.miniapp.api.WxMaService;
@@ -12,6 +15,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,11 +33,17 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
+    //测试userId
+    private static final Long TEST_USER_ID = 1L;
+
     @Autowired
     private WxMaService wxMaService;
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserProfileMapper userProfileMapper;
 
     @Value("${jwt.secretKey}")
     private String secretKey;
@@ -79,6 +89,37 @@ public class UserServiceImpl implements UserService {
             return Result.success(userLoginVo);
         } catch (WxErrorException e) {
             return Result.error(e.getError().getErrorMsg());
+        }
+    }
+
+    @Override
+    public Result updateUserProfile(UserProfileDTO userProfileDTO) {
+        UserProfile userProfileDB = userProfileMapper.selectOne(new LambdaQueryWrapper<>(UserProfile.class).eq(UserProfile::getUserId, TEST_USER_ID));
+        if(userProfileDB == null){
+            //新增
+            UserProfile userProfile = new UserProfile();
+            BeanUtils.copyProperties(userProfileDTO, userProfile);
+            userProfile.setUserId(TEST_USER_ID);
+
+            int insert = userProfileMapper.insert(userProfile);
+
+            //判断是否保存成功
+            if(insert > 0){
+                return Result.success();
+            }
+            return Result.error("保存失败");
+        }else{
+            //更新
+            Integer id = userProfileDB.getId();
+            UserProfile userProfile = new UserProfile();
+            BeanUtils.copyProperties(userProfileDTO, userProfile);
+            userProfile.setId(id);
+
+            int update = userProfileMapper.updateById(userProfile);
+            if(update > 0){
+                return Result.success();
+            }
+            return Result.error("保存失败");
         }
     }
 

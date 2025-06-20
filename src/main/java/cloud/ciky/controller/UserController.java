@@ -2,6 +2,7 @@ package cloud.ciky.controller;
 
 import cloud.ciky.entity.Result;
 import cloud.ciky.entity.dto.UserLoginDTO;
+import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.vo.UserLoginVo;
 import cloud.ciky.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,4 +36,16 @@ public class UserController {
         log.info("微信用户登录:{}",userLoginDTO);
         return userService.login(userLoginDTO);
     }
+
+    /**
+     * 保存用户健康数据
+     * @param userProfileDTO
+     * @return
+     */
+    @PostMapping("/profile/save")
+    public Result updateUserProfile(@RequestBody UserProfileDTO userProfileDTO){
+        log.info("用户健康数据:{}",userProfileDTO);
+        return userService.updateUserProfile(userProfileDTO);
+    }
+
 }

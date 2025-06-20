@@ -1,7 +1,10 @@
 package cloud.ciky;
 
 import cloud.ciky.entity.model.User;
+import cloud.ciky.entity.model.UserProfile;
 import cloud.ciky.mapper.UserMapper;
+import cloud.ciky.mapper.UserProfileMapper;
+import cloud.ciky.utils.JwtUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +23,20 @@ public class MapperTest {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserProfileMapper userProfileMapper;
+
     @Test
-    public void testMapper(){
+    public void testUserMapper(){
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getOpenid, "123"));
         System.out.println(user);
     }
+
+    @Test
+    public void testUserProfileMapper(){
+        UserProfile userProfile = userProfileMapper.selectOne(new LambdaQueryWrapper<UserProfile>().eq(UserProfile::getUserId, 1));
+        System.out.println(userProfile);
+    }
+
+
 }

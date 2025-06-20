@@ -8,10 +8,7 @@ import cloud.ciky.entity.vo.UserProfileVo;
 import cloud.ciky.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -57,6 +54,7 @@ public class UserController {
      * 根据userId获取用户健康数据
      * @return
      */
+    @GetMapping("/profile/list")
     public Result<UserProfileVo> getUserProfileByUserId(){
         log.info("当前登录用户id:{}",TEST_USER_ID);
         return userService.getUserProfileByUserId(TEST_USER_ID);

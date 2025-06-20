@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
             //更新
             UserProfile userProfile = new UserProfile();
             BeanUtils.copyProperties(userProfileDTO, userProfile);
-            Integer dailyCalorie = calculateDailyCalorie(userProfile);
+            Integer dailyCalorie = userProfile.getDailyCalorie();
             Integer dailyCalorieCalculated = calculateDailyCalorie(userProfile);
             if(dailyCalorie == null){
                 userProfile.setDailyCalorie(dailyCalorieCalculated);
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
     public Result<UserProfileVo> getUserProfileByUserId(Long userId) {
         UserProfileVo userProfileVo = userProfileMapper.getUserProfileByUserId(userId);
         if(userProfileVo == null){
-            return Result.success(null);
+            return Result.error("未查询到用户数据");
         }
         return Result.success(userProfileVo);
     }

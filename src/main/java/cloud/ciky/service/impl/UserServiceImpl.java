@@ -101,11 +101,11 @@ public class UserServiceImpl implements UserService {
             UserProfile userProfile = new UserProfile();
             BeanUtils.copyProperties(userProfileDTO, userProfile);
             Integer dailyCalorie = userProfile.getDailyCalorie();
-            dailyCalorie = calculateDailyCalorie(userProfile);
+            Integer dailyCalorieCalculated = calculateDailyCalorie(userProfile);
             if(dailyCalorie == null){
-                userProfile.setDailyCalorie(dailyCalorie);
+                userProfile.setDailyCalorie(dailyCalorieCalculated);
             }
-            userProfile.setRecommendedDailyCalorie(dailyCalorie);
+            userProfile.setRecommendedDailyCalorie(dailyCalorieCalculated);
             userProfile.setUserId(TEST_USER_ID);
             int insert = userProfileMapper.insert(userProfile);
 
@@ -119,11 +119,11 @@ public class UserServiceImpl implements UserService {
             UserProfile userProfile = new UserProfile();
             BeanUtils.copyProperties(userProfileDTO, userProfile);
             Integer dailyCalorie = calculateDailyCalorie(userProfile);
-            dailyCalorie = calculateDailyCalorie(userProfile);
+            Integer dailyCalorieCalculated = calculateDailyCalorie(userProfile);
             if(dailyCalorie == null){
-                userProfile.setDailyCalorie(dailyCalorie);
+                userProfile.setDailyCalorie(dailyCalorieCalculated);
             }
-            userProfile.setRecommendedDailyCalorie(dailyCalorie);
+            userProfile.setRecommendedDailyCalorie(dailyCalorieCalculated);
             userProfile.setUserId(TEST_USER_ID);
             Integer id = userProfileDB.getId();
             userProfile.setId(id);

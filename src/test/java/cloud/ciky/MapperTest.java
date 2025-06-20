@@ -3,6 +3,7 @@ package cloud.ciky;
 import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.model.User;
 import cloud.ciky.entity.model.UserProfile;
+import cloud.ciky.entity.vo.UserProfileVo;
 import cloud.ciky.mapper.UserMapper;
 import cloud.ciky.mapper.UserProfileMapper;
 import cloud.ciky.service.UserService;
@@ -48,6 +49,12 @@ public class MapperTest {
 
         UserProfileDTO userProfileDTO = new UserProfileDTO("1", 21, 63.0, 170.0, -3.0, "0", null);
         userService.updateUserProfile(userProfileDTO);
+    }
+
+    @Test
+    public void testGetUserProfile() {
+        UserProfileVo userProfileVo = userProfileMapper.getUserProfileByUserId(3L);
+        System.out.println(userProfileVo);
     }
 
 

@@ -40,7 +40,7 @@ public class UserProfileDTO {
     private Double weightGoal;
 
     /**
-     *活动程度(0->久坐不动,1->轻度活动,2->中度活动,3->重度活动,4->极度活动)
+     *活动程度(0->几乎不运动,1->每周运动1-3天,2->每周运动3-5天,3->每周运动6-7天,4->体力劳动或每天高强度训练)
      */
     private String activityLevel;
 

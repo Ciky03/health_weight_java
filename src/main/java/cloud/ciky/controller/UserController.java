@@ -1,5 +1,6 @@
 package cloud.ciky.controller;
 
+import cloud.ciky.context.UserContext;
 import cloud.ciky.entity.Result;
 import cloud.ciky.entity.dto.UserLoginDTO;
 import cloud.ciky.entity.dto.UserProfileDTO;
@@ -22,9 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
 
-    //测试userId
-    private static final Long TEST_USER_ID = 1L;
-
     @Autowired
     private UserService userService;
 
@@ -46,9 +44,10 @@ public class UserController {
      */
     @PostMapping("/profile/save")
     public Result updateUserProfile(@RequestBody UserProfileDTO userProfileDTO){
-        log.info("当前登录用户id:{}",TEST_USER_ID);
+        Long userId = UserContext.getUserId();
+        log.info("登录用户id:{}",userId);
         log.info("用户健康数据:{}",userProfileDTO);
-        return userService.updateUserProfile(userProfileDTO);
+        return userService.updateUserProfile(userProfileDTO,userId);
     }
 
     /**
@@ -57,8 +56,9 @@ public class UserController {
      */
     @GetMapping("/profile/list")
     public Result<UserProfileVo> getUserProfileByUserId(){
-        log.info("当前登录用户id:{}",TEST_USER_ID);
-        return userService.getUserProfileByUserId(TEST_USER_ID);
+        Long userId = UserContext.getUserId();
+        log.info("登录用户id:{}",userId);
+        return userService.getUserProfileByUserId(userId);
     }
 
     /**
@@ -67,9 +67,10 @@ public class UserController {
      */
     @GetMapping("/profile/info")
     public Result<UserCalorieVo> getDailyCalorieByUserId(){
-        log.info("当前登录用户id:{}",TEST_USER_ID);
+        Long userId = UserContext.getUserId();
+        log.info("登录用户id:{}",userId);
         //TODO 还需要返回当日摄入的卡路里值
-        return userService.getDailyCalorieByUserId(TEST_USER_ID);
+        return userService.getDailyCalorieByUserId(userId);
     }
 
 }

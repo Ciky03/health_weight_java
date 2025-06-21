@@ -48,7 +48,7 @@ public class MapperTest {
     public void testSaveUserProfile(){
 
         UserProfileDTO userProfileDTO = new UserProfileDTO("1", 21, 63.0, 170.0, -3.0, "0", null);
-        userService.updateUserProfile(userProfileDTO);
+        userService.updateUserProfile(userProfileDTO,1L);
     }
 
     @Test

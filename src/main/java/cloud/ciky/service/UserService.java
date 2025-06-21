@@ -25,9 +25,10 @@ public interface UserService {
     /**
      * 保存用户健康数据
      * @param userProfileDTO
+     * @param userId 用户id
      * @return
      */
-    public Result updateUserProfile(UserProfileDTO userProfileDTO);
+    public Result updateUserProfile(UserProfileDTO userProfileDTO,Long userId);
 
     /**
      * 获取用户健康数据

@@ -36,9 +36,6 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //测试userId
-    private static final Long TEST_USER_ID = 1L;
-
     @Autowired
     private WxMaService wxMaService;
 
@@ -96,8 +93,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result updateUserProfile(UserProfileDTO userProfileDTO) {
-        UserProfile userProfileDB = userProfileMapper.selectOne(new LambdaQueryWrapper<>(UserProfile.class).eq(UserProfile::getUserId, TEST_USER_ID));
+    public Result updateUserProfile(UserProfileDTO userProfileDTO,Long userId) {
+        UserProfile userProfileDB = userProfileMapper.selectOne(new LambdaQueryWrapper<>(UserProfile.class).eq(UserProfile::getUserId, userId));
         if(userProfileDB == null){
             //新增
             UserProfile userProfile = new UserProfile();
@@ -108,7 +105,7 @@ public class UserServiceImpl implements UserService {
                 userProfile.setDailyCalorie(dailyCalorieCalculated);
             }
             userProfile.setRecommendedDailyCalorie(dailyCalorieCalculated);
-            userProfile.setUserId(TEST_USER_ID);
+            userProfile.setUserId(userId);
             int insert = userProfileMapper.insert(userProfile);
 
             //判断是否保存成功
@@ -126,7 +123,7 @@ public class UserServiceImpl implements UserService {
                 userProfile.setDailyCalorie(dailyCalorieCalculated);
             }
             userProfile.setRecommendedDailyCalorie(dailyCalorieCalculated);
-            userProfile.setUserId(TEST_USER_ID);
+            userProfile.setUserId(userId);
             Integer id = userProfileDB.getId();
             userProfile.setId(id);
             int update = userProfileMapper.updateById(userProfile);

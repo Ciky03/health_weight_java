@@ -25,8 +25,13 @@
 
     </select>
 
-    <select id="selectDailyCalorieByUserId" resultType="integer"
+    <select id="selectDailyCalorieByUserId" resultType="cloud.ciky.entity.vo.UserCalorieVo"
             parameterType="java.lang.Long">
-        select daily_calorie from health_user_profile where user_id = #{userId}
+        select
+            weight as weight,
+            weight_goal as weightGoal,
+            daily_calorie as dailyCalorie
+        from health_user_profile
+        where user_id = #{userId}
     </select>
 </mapper>

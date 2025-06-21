@@ -3,6 +3,7 @@ package cloud.ciky.service;
 import cloud.ciky.entity.Result;
 import cloud.ciky.entity.dto.UserLoginDTO;
 import cloud.ciky.entity.dto.UserProfileDTO;
+import cloud.ciky.entity.vo.UserCalorieVo;
 import cloud.ciky.entity.vo.UserLoginVo;
 import cloud.ciky.entity.vo.UserProfileVo;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,5 @@ public interface UserService {
      * @param userId 用户id
      * @return
      */
-    Result<Integer> getDailyCalorieByUserId(Long userId);
+    Result<UserCalorieVo> getDailyCalorieByUserId(Long userId);
 }

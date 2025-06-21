@@ -5,6 +5,7 @@ import cloud.ciky.entity.dto.UserLoginDTO;
 import cloud.ciky.entity.dto.UserProfileDTO;
 import cloud.ciky.entity.model.User;
 import cloud.ciky.entity.model.UserProfile;
+import cloud.ciky.entity.vo.UserCalorieVo;
 import cloud.ciky.entity.vo.UserLoginVo;
 import cloud.ciky.entity.vo.UserProfileVo;
 import cloud.ciky.enums.ActivityLevelEnum;
@@ -148,12 +149,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<Integer> getDailyCalorieByUserId(Long userId) {
-        Integer dailyCalorie = userProfileMapper.selectDailyCalorieByUserId(userId);
-        if(dailyCalorie == null){
-            return Result.error("未查询到用户目标卡路里");
+    public Result<UserCalorieVo> getDailyCalorieByUserId(Long userId) {
+        UserCalorieVo userCalorieVo = userProfileMapper.selectDailyCalorieByUserId(userId);
+        if(userCalorieVo == null){
+            return Result.error("未查询到用户信息");
         }
-        return Result.success(dailyCalorie);
+        return Result.success(userCalorieVo);
     }
 
     /**
@@ -185,6 +186,8 @@ public class UserServiceImpl implements UserService {
         double tdee = bmr * activeFactor;
 
         //3.计算
+        //TODO 1.weight小数bug,负负得正
+        //TODO 2.两个都是weightGoal>0,需要修改
         Double weightGoal = userProfile.getWeightGoal();
         if(weightGoal > 0){
             tdee -= (weightGoal/0.5)*500;

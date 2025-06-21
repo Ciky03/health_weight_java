@@ -3,6 +3,7 @@ package cloud.ciky.controller;
 import cloud.ciky.entity.Result;
 import cloud.ciky.entity.dto.UserLoginDTO;
 import cloud.ciky.entity.dto.UserProfileDTO;
+import cloud.ciky.entity.vo.UserCalorieVo;
 import cloud.ciky.entity.vo.UserLoginVo;
 import cloud.ciky.entity.vo.UserProfileVo;
 import cloud.ciky.service.UserService;
@@ -61,12 +62,13 @@ public class UserController {
     }
 
     /**
-     * 根据userId获取用户每日卡路里
+     * 根据userId获取用户每日卡路里/体重/体重增减目标
      * @return
      */
-    @GetMapping("/profile/calorie")
-    public Result<Integer> getDailyCalorieByUserId(){
+    @GetMapping("/profile/info")
+    public Result<UserCalorieVo> getDailyCalorieByUserId(){
         log.info("当前登录用户id:{}",TEST_USER_ID);
+        //TODO 还需要返回当日摄入的卡路里值
         return userService.getDailyCalorieByUserId(TEST_USER_ID);
     }
 

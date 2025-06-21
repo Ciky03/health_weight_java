@@ -1,6 +1,7 @@
 package cloud.ciky.mapper;
 
 import cloud.ciky.entity.model.UserProfile;
+import cloud.ciky.entity.vo.UserCalorieVo;
 import cloud.ciky.entity.vo.UserProfileVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserProfileMapper extends BaseMapper<UserProfile> {
     public UserProfileVo getUserProfileByUserId(Long userId);
 
-    public Integer selectDailyCalorieByUserId(Long userId);
+    public UserCalorieVo selectDailyCalorieByUserId(Long userId);
 }

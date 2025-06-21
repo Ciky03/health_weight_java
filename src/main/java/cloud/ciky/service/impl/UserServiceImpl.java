@@ -186,14 +186,16 @@ public class UserServiceImpl implements UserService {
         double tdee = bmr * activeFactor;
 
         //3.计算
-        //TODO 1.weight小数bug,负负得正
-        //TODO 2.两个都是weightGoal>0,需要修改
         Double weightGoal = userProfile.getWeightGoal();
-        if(weightGoal > 0){
-            tdee -= (weightGoal/0.5)*500;
-        }else if(weightGoal > 0){
-            tdee += (weightGoal/0.5)*300;
+        if(weightGoal != 0){
+            double calorieAdjustment = (weightGoal * 7700) / 7;
+            tdee += calorieAdjustment;
         }
+
+        //4.安全限制（不低于基础代谢的1.2倍）
+        double minSafeCalorie = bmr * 1.2;
+        tdee = Math.max(tdee, minSafeCalorie);
+
         return Math.toIntExact(Math.round(tdee));
     }
 
